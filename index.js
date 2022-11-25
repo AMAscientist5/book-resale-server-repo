@@ -22,6 +22,12 @@ async function run() {
     const categoriesCollection = client
       .db("aradunBookResale")
       .collection("categories");
+
+    app.get("/categories", async (req, res) => {
+      const query = {};
+      const users = await categoriesCollection.find(query).toArray();
+      res.send(users);
+    });
   } finally {
   }
 }
