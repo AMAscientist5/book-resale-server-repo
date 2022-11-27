@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -23,10 +23,27 @@ async function run() {
       .db("aradunBookResale")
       .collection("categories");
 
-    app.get("/categories", async (req, res) => {
+    const categoryCollection = client
+      .db("aradunBookResale")
+      .collection("category");
+
+    const usersCollection = client.db("aradunBookResale").collection("users");
+
+    const bookingsCollection = client
+      .db("aradunBookResale")
+      .collection("bookings");
+
+    app.get("/category", async (req, res) => {
       const query = {};
-      const users = await categoriesCollection.find(query).toArray();
+      const users = await categoryCollection.find(query).toArray();
       res.send(users);
+    });
+
+    app.get("/category/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const booking = await categoryCollection.findOne(query);
+      res.send(booking);
     });
   } finally {
   }
