@@ -64,6 +64,13 @@ async function run() {
         const result = await usersCollection.insertOne(user);
         res.send(result);
       });
+
+      app.post("/bookings", async (req, res) => {
+        console.log(req.body);
+        const user = req.body;
+        const result = await bookingsCollection.insertOne(user);
+        res.send(result);
+      });
     });
   } finally {
   }
