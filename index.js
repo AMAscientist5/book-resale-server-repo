@@ -44,6 +44,13 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const booking = await categoryCollection.findOne(query);
       res.send(booking);
+
+      app.get("/categoryType", async (req, res) => {
+        const category_id = req.query.category_id;
+        const query = { category_id };
+        const result = await categoryCollection.find(query).toArray();
+        res.send(result);
+      });
     });
   } finally {
   }
