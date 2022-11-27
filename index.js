@@ -57,6 +57,13 @@ async function run() {
         const result = await categoryCollection.find(query).toArray();
         res.send(result);
       });
+
+      app.post("/users", async (req, res) => {
+        console.log(req.body);
+        const user = req.body;
+        const result = await usersCollection.insertOne(user);
+        res.send(result);
+      });
     });
   } finally {
   }
