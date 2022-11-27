@@ -33,6 +33,12 @@ async function run() {
       .db("aradunBookResale")
       .collection("bookings");
 
+    app.get("/categories", async (req, res) => {
+      const query = {};
+      const users = await categoriesCollection.find(query).toArray();
+      res.send(users);
+    });
+
     app.get("/category", async (req, res) => {
       const query = {};
       const users = await categoryCollection.find(query).toArray();
