@@ -32,11 +32,23 @@ async function run() {
     const bookingsCollection = client
       .db("aradunBookResale")
       .collection("bookings");
+    const sellerProductCollection = client
+      .db("aradunBookResale")
+      .collection("sellerProducts");
 
     app.get("/categories", async (req, res) => {
       const query = {};
       const users = await categoriesCollection.find(query).toArray();
       res.send(users);
+    });
+
+    app.get("/categoriesName", async (req, res) => {
+      const query = {};
+      const result = await categoriesCollection
+        .find(query)
+        .project({ categoryName: 1 })
+        .toArray();
+      res.send(result);
     });
 
     app.get("/category", async (req, res) => {
@@ -102,6 +114,12 @@ async function run() {
     app.post("/bookings", async (req, res) => {
       const user = req.body;
       const result = await bookingsCollection.insertOne(user);
+      res.send(result);
+    });
+
+    app.post("/sellerProducts", async (req, res) => {
+      const seller = req.body;
+      const result = await sellerProductCollection.insertOne(seller);
       res.send(result);
     });
   } finally {
