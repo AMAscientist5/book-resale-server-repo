@@ -77,6 +77,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/usersType", async (req, res) => {
+      const role = req.query.role;
+      const query = { role };
+      const result = await usersCollection.find(query).toArray();
+      res.send(result);
+    });
+
     app.get("/users/admin/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email };
@@ -105,8 +112,22 @@ async function run() {
       res.send(result);
     });
 
+    app.delete("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await usersCollection.deleteOne(query);
+      res.send(result);
+    });
+
     app.get("/bookings", async (req, res) => {
       const query = {};
+      const result = await bookingsCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.get("/bookingsOrder", async (req, res) => {
+      const email = req.query.email;
+      const query = { email };
       const result = await bookingsCollection.find(query).toArray();
       res.send(result);
     });
