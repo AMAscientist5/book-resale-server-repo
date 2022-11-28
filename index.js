@@ -117,9 +117,29 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/sellerProducts", async (req, res) => {
+      const query = {};
+      const result = await sellerProductCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.get("/sellerProducts/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await sellerProductCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/sellerProducts", async (req, res) => {
       const seller = req.body;
       const result = await sellerProductCollection.insertOne(seller);
+      res.send(result);
+    });
+
+    app.delete("/sellerProducts/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await sellerProductCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
