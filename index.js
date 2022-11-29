@@ -97,21 +97,19 @@ async function run() {
     });
     app.get("/users/seller/:email", async (req, res) => {
       const email = req.params.email;
-      console.log(req.params.email);
       const query = { email };
       const user = await usersCollection.findOne(query);
       res.send({ isSeller: user?.role === "seller" });
     });
     app.get("/users/buyer/:email", async (req, res) => {
       const email = req.params.email;
-      console.log(req.params.email);
+
       const query = { email };
       const user = await usersCollection.findOne(query);
       res.send({ isBuyer: user?.role === "buyer" });
     });
 
     app.post("/users", async (req, res) => {
-      console.log(req.body);
       const user = req.body;
       const result = await usersCollection.insertOne(user);
       res.send(result);
