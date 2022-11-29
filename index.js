@@ -19,6 +19,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    //Mongodb Collections
     const categoriesCollection = client
       .db("aradunBookResale")
       .collection("categories");
@@ -36,6 +37,7 @@ async function run() {
       .db("aradunBookResale")
       .collection("sellerProducts");
 
+    //Categories API is started
     app.get("/categories", async (req, res) => {
       const query = {};
       const users = await categoriesCollection.find(query).toArray();
@@ -51,6 +53,7 @@ async function run() {
       res.send(result);
     });
 
+    //Category APi's are start from here
     app.get("/category", async (req, res) => {
       const query = {};
       const users = await categoryCollection.find(query).toArray();
@@ -70,6 +73,8 @@ async function run() {
       const result = await categoryCollection.find(query).toArray();
       res.send(result);
     });
+
+    //User Apis from here
 
     app.get("/users", async (req, res) => {
       const query = {};
@@ -119,6 +124,8 @@ async function run() {
       res.send(result);
     });
 
+    //Booking Api start from here
+
     app.get("/bookings", async (req, res) => {
       const query = {};
       const result = await bookingsCollection.find(query).toArray();
@@ -137,6 +144,8 @@ async function run() {
       const result = await bookingsCollection.insertOne(user);
       res.send(result);
     });
+
+    //Seller product store api start here
 
     app.get("/sellerProducts", async (req, res) => {
       const query = {};
